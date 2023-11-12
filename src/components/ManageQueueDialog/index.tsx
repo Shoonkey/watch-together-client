@@ -72,6 +72,7 @@ function ManageQueueDialog(props: Omit<ModalProps, "children">) {
               top="142px"
               zIndex={1}
               bg="gray.700"
+              _light={{ bg: "white" }}
               pb={4}
             >
               <Tab>Queue</Tab>
