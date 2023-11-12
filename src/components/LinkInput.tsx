@@ -13,7 +13,7 @@ interface LinkInputProps {
 
 function LinkInput({ error, ...props }: LinkInputProps & InputProps) {
   return (
-    <FormControl isInvalid={Boolean(error)}>
+    <FormControl isInvalid={Boolean(error)} position="sticky" top="0px" py={4} zIndex={1} bg="gray.700">
       <FormLabel>Link</FormLabel>
       <Input
         aria-label="Link"

@@ -1,14 +1,13 @@
-import { Flex, Heading, Spinner, Text } from "@chakra-ui/react";
+import { Flex, Heading, Spinner } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
+import { Link } from "@phosphor-icons/react";
 
-import useDebouncedValue from "../../hooks/useDebouncedValue";
 import parseIntentionFromURL, { ParseURLError } from "../../util/parseURL";
 import API from "../../api";
 import Video from "../../shared/Video";
 import Playlist from "../../shared/Playlist";
 import YoutubePlaylistResult from "../YoutubePlaylistResult";
 import YoutubeVideoResult from "../YoutubeVideoResult";
-import { Link } from "@phosphor-icons/react";
 
 interface AddToQueueTabProps {
   linkText: string;
@@ -31,13 +30,11 @@ function AddToQueueTab({ linkText, onError }: AddToQueueTabProps) {
   const [result, setResult] = useState<ResultType | null>(null);
   const [loading, setLoading] = useState(false);
 
-  const debouncedLinkText = useDebouncedValue(linkText, 800);
-
   useEffect(() => {
     setResult(null);
     onError("");
 
-    if (debouncedLinkText.length === 0) return;
+    if (linkText.length === 0) return;
 
     setLoading(true);
 
@@ -78,7 +75,7 @@ function AddToQueueTab({ linkText, onError }: AddToQueueTabProps) {
         setLoading(false);
       }
     })();
-  }, [debouncedLinkText]);
+  }, [linkText]);
 
   let content;
 
@@ -89,14 +86,14 @@ function AddToQueueTab({ linkText, onError }: AddToQueueTabProps) {
     content = <YoutubePlaylistResult playlist={result.playlist} />;
   else
     content = (
-      <Flex flexDir="column" alignItems="center" gap={2} color="gray.400" _light={{ color: "gray.600" }}>
+      <Flex flexDir="column" h="100%" justifyContent="center" alignItems="center" gap={2} color="gray.400" _light={{ color: "gray.600" }}>
         <Link size={64} />
         <Heading as="h2" size="md">Waiting for link...</Heading>
       </Flex>
     );
 
   return (
-    <Flex flexDir="column" justifyContent="center" alignItems="center" h="100%">
+    <Flex flexDir="column" h="100%">
       {content}
     </Flex>
   );
